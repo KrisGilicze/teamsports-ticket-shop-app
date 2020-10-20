@@ -1,17 +1,17 @@
 export type RootStackParamList = {
-  Root: undefined;
-  NotFound: undefined;
+    Root: undefined;
+    NotFound: undefined;
 };
 
 export type BottomTabParamList = {
-  Autch: undefined;
-  Scanner: undefined;
+    Auth: undefined;
+    Scanner: undefined;
 };
 
-export type AutchParamList = {
-  AutchScreen: undefined;
+export type AuthParamList = {
+    AuthScreen: undefined;
 };
 
 export type ScannerParamList = {
-  ScannerScreen: undefined;
+    ScannerScreen: undefined;
 };
