@@ -27,8 +27,6 @@ export default function ScannerScreen() {
     return <Text>No access to camera</Text>;
   }
 
-  console.log({hasPermission: hasPermission});
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>QR Scanner</Text>
