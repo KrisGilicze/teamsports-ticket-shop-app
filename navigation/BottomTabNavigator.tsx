@@ -7,7 +7,15 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import AuthScreen from '../screens/AuthScreen';
 import ScannerScreen from '../screens/ScannerScreen';
-import { BottomTabParamList, AuthParamList, ScannerParamList } from '../types';
+import TeamSelectionScreen from '../screens/TeamSelectionScreen';
+import LoginScreen from '../screens/LoginScreen';
+import {
+    BottomTabParamList,
+    AuthParamList,
+    ScannerParamList,
+    TeamSelectionParamList,
+    LoginParamList,
+} from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -21,6 +29,24 @@ export default function BottomTabNavigator() {
             <BottomTab.Screen
                 name="Auth"
                 component={AuthNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="ios-code" color={color} />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="TeamSelection"
+                component={TeamSelectionNavigator}
+                options={{
+                    tabBarIcon: ({ color }) => (
+                        <TabBarIcon name="ios-code" color={color} />
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="Login"
+                component={LoginNavigator}
                 options={{
                     tabBarIcon: ({ color }) => (
                         <TabBarIcon name="ios-code" color={color} />
@@ -62,6 +88,33 @@ function AuthNavigator() {
     );
 }
 
+const TeamSelectionStack = createStackNavigator<TeamSelectionParamList>();
+
+function TeamSelectionNavigator() {
+    return (
+        <TeamSelectionStack.Navigator>
+            <TeamSelectionStack.Screen
+                name="TeamSelectionScreen"
+                component={TeamSelectionScreen}
+                options={{ headerTitle: 'TeamSelectionScreen' }}
+            />
+        </TeamSelectionStack.Navigator>
+    );
+}
+
+const LoginStack = createStackNavigator<LoginParamList>();
+
+function LoginNavigator() {
+    return (
+        <LoginStack.Navigator>
+            <LoginStack.Screen
+                name="LoginScreen"
+                component={LoginScreen}
+                options={{ headerTitle: 'LoginScreen' }}
+            />
+        </LoginStack.Navigator>
+    );
+}
 const ScannerStack = createStackNavigator<ScannerParamList>();
 
 function ScannerNavigator() {
