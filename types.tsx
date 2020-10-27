@@ -1,17 +1,25 @@
 export type RootStackParamList = {
-  Root: undefined;
-  NotFound: undefined;
+    Root: undefined;
+    NotFound: undefined;
 };
 
 export type BottomTabParamList = {
-  Autch: undefined;
-  Scanner: undefined;
+    Auth: undefined;
+    TeamSelection: undefined;
+    Scanner: undefined;
 };
 
-export type AutchParamList = {
-  AutchScreen: undefined;
+export type AuthParamList = {
+    AuthScreen: undefined;
+};
+
+export type TeamSelectionParamList = {
+    TeamSelectionScreen: undefined;
+};
+export type LoginParamList = {
+    LoginScreen: undefined;
 };
 
 export type ScannerParamList = {
-  ScannerScreen: undefined;
+    ScannerScreen: undefined;
 };
