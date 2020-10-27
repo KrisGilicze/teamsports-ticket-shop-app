@@ -5,11 +5,19 @@ export type RootStackParamList = {
 
 export type BottomTabParamList = {
     Auth: undefined;
+    TeamSelection: undefined;
     Scanner: undefined;
 };
 
 export type AuthParamList = {
     AuthScreen: undefined;
+};
+
+export type TeamSelectionParamList = {
+    TeamSelectionScreen: undefined;
+};
+export type LoginParamList = {
+    LoginScreen: undefined;
 };
 
 export type ScannerParamList = {

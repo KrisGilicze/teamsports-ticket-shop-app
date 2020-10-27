@@ -11,6 +11,11 @@ export default {
                             AuthScreen: 'one',
                         },
                     },
+                    TeamSelection: {
+                        screens: {
+                            TeamSelectionScreen: 'TS',
+                        },
+                    },
                     Scanner: {
                         screens: {
                             ScannerScreen: 'two',
