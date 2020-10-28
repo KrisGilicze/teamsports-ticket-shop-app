@@ -10,7 +10,7 @@ git clone https://github.com/KrisGilicze/teamsports-ticket-shop-app.git
 ```
 npm install --global expo-cli
 ```
-3. Install dependencies (yarn, do not use npm)
+3. Install dependencies (!!!yarn, do not use npm!!!)
 ```
 yarn
 ```
