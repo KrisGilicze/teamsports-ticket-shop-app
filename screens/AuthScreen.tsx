@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Image, StyleSheet, ActivityIndicator } from 'react-native';
-import { Container, Content, Text, Button, H1, H3 } from 'native-base';
+import { Text, Button } from 'react-native-paper';
 import * as Linking from 'expo-linking';
 import { View } from '../components/Themed';
 import AsyncStorageService from '../services/AsyncStorageService';
@@ -45,15 +45,15 @@ export default function AuthScreen() {
                 anmelden willst. Du kannst dann mit allen Mitgliedern
                 kommunizieren.
             </Text>
-            <Button block onPress={chooseTeam}>
-                <Text>Verein/Team wählen</Text>
+            <Button mode={'contained'} onPress={chooseTeam}>
+                Verein/Team wählen
             </Button>
 
             <Text style={{ ...styles.notFoundYet, textAlign: 'center' }}>
                 Dein Verein/Team ist noch nicht dabei?
             </Text>
-            <Button block light onPress={() => {}}>
-                <Text>Melde dich hier an</Text>
+            <Button mode={'outlined'} onPress={() => {}}>
+                Melde dich hier an
             </Button>
             <View style={styles.disclaimer}>
                 <Text style={{ ...styles.disclaimerText, textAlign: 'center' }}>
@@ -63,22 +63,20 @@ export default function AuthScreen() {
                 </Text>
                 <View style={styles.disclaimerLinks}>
                     <Button
-                        transparent
+                        compact
                         onPress={() => {
                             Linking.openURL('https://www.teamsports2.de/agb');
                         }}>
-                        <Text style={styles.disclaimerLink}>AGB</Text>
+                        AGB
                     </Button>
                     <Button
-                        transparent
+                        compact
                         onPress={() => {
                             Linking.openURL(
                                 'https://www.teamsports2.de/privacy-policy'
                             );
                         }}>
-                        <Text style={styles.disclaimerLink}>
-                            Datenschutzbestimmung
-                        </Text>
+                        Datenschutzbestimmung
                     </Button>
                 </View>
             </View>

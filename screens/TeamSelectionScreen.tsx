@@ -1,20 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Image, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
-import {
-    Container,
-    Content,
-    Header,
-    Left,
-    Right,
-    Body,
-    Title,
-    Text,
-    Button,
-    Icon,
-    List,
-    ListItem,
-    Toast,
-} from 'native-base';
+import { StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
+import { Text, Appbar, List } from 'react-native-paper';
 import { View } from '../components/Themed';
 import BackendDatabaseService from '../services/BackendDatabaseService';
 import AsyncStorageService from '../services/AsyncStorageService';
@@ -33,6 +19,10 @@ export default function TeamSelectionScreen() {
         fetchData();
     }, []);
 
+    const goBack = () => console.log('Went back');
+
+    const handleSearch = () => console.log('Searching');
+
     const onTeamPressed = async (domain: string, name: string) => {
         console.log({ domain: domain, name: name });
         const asyncStorageService = new AsyncStorageService();
@@ -50,63 +40,71 @@ export default function TeamSelectionScreen() {
         }
         const instArray = [];
         for (let i = 0; i < instances.length; i++) {
-            // if (i === 1) console.log({ instance: instances[i] });
             if (instances[i] && instances[i].club) {
+                const name = instances[i].club;
+                const description = instances[i].domain;
+                console.log({ name: name, description: description });
                 instArray.push(
-                    <ListItem
+                    <List.Item
+                        title={name}
+                        description={description}
                         key={'list_key_' + i}
                         onPress={() => {
                             onTeamPressed(
                                 instances[i].domain,
                                 instances[i].club
                             );
-                        }}>
-                        <Text>{instances[i].club}</Text>
-                    </ListItem>
+                        }}
+                        left={(props) => (
+                            <List.Icon {...props} icon="application-import" />
+                        )}
+                    />
                 );
             }
         }
-        return <List>{instArray}</List>;
+        return (
+            <List.Section>
+                <List.Subheader>Some title</List.Subheader>
+                {instArray}
+            </List.Section>
+        );
     };
 
     const MyHeader = () => {
         return (
-            // <Container>
-            <Header>
-                <Body>
-                    <Title>Auswahl Verein</Title>
-                </Body>
-            </Header>
-            // </Container>
+            <Appbar.Header>
+                <Appbar.BackAction onPress={goBack} />
+                <Appbar.Content
+                    title="Vereinsauswahl"
+                    subtitle="Bitte wähle deinen Verein aus"
+                />
+                <Appbar.Action icon="magnify" onPress={handleSearch} />
+            </Appbar.Header>
         );
     };
 
     if (loading) {
         return (
-            <Container>
+            <View>
                 <MyHeader />
-                <Container>
+                <View>
                     <ActivityIndicator color="#ccc" />
                     <Text>Loading...</Text>
-                </Container>
-            </Container>
+                </View>
+            </View>
         );
     }
 
     return (
-        <Container>
+        <View>
             <MyHeader />
             <ScrollView
                 contentContainerStyle={{
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: 10,
-                    paddingTop: 30,
+                    paddingBottom: 30,
                 }}>
-                <Text>Select Your Team</Text>
                 <RenderInstances />
             </ScrollView>
-        </Container>
+        </View>
     );
 }
 
