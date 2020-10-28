@@ -1,29 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Image,
     StyleSheet,
     ActivityIndicator,
     KeyboardAvoidingView,
     Keyboard,
 } from 'react-native';
-import {
-    Button,
-    Container,
-    Content,
-    Form,
-    Header,
-    Input,
-    Item,
-    Left,
-    Right,
-    Body,
-    Title,
-    Text,
-    Icon,
-    List,
-    ListItem,
-    Toast,
-} from 'native-base';
+import { Button, Text, Appbar, TextInput } from 'react-native-paper';
 import { View } from '../components/Themed';
 import InstanceDatabaseService from '../services/InstanceDatabaseService';
 import AsyncStorageService from '../services/AsyncStorageService';
@@ -57,66 +39,64 @@ export default function LoginScreen() {
         }
     };
 
+    const goBack = () => {
+        console.log('gone back');
+    };
+
     const MyHeader = () => {
         return (
-            <Header>
-                <Body>
-                    <Title>Login</Title>
-                </Body>
-            </Header>
+            <Appbar.Header>
+                <Appbar.BackAction onPress={goBack} />
+                <Appbar.Content
+                    title="Login"
+                    subtitle="Bitte logge dich mit deinen Zugangsdaten ein"
+                />
+            </Appbar.Header>
         );
     };
 
     if (loading) {
         return (
-            <Container>
+            <View>
                 <MyHeader />
-                <Container>
+                <View>
                     <ActivityIndicator color="#ccc" />
                     <Text>Loading...</Text>
-                </Container>
-            </Container>
+                </View>
+            </View>
         );
     }
 
     return (
-        <Container>
+        <View>
             <MyHeader />
-            <Content padder>
-                <KeyboardAvoidingView
-                    style={{
-                        justifyContent: 'center',
-                        padding: 10,
-                        paddingTop: 30,
-                    }}>
-                    <Form>
-                        <Item>
-                            <Input
-                                placeholder="Username"
-                                value={username}
-                                autoCapitalize="none"
-                                onChangeText={(i) => setUsername(i)}
-                            />
-                        </Item>
-                        <Item last>
-                            <Input
-                                placeholder="Password"
-                                value={password}
-                                onChangeText={(i) => setPassword(i)}
-                                secureTextEntry
-                            />
-                        </Item>
-                        <Button
-                            primary
-                            block
-                            style={{ marginTop: 15 }}
-                            onPress={() => onSubmit()}>
-                            <Text>Submit</Text>
-                        </Button>
-                    </Form>
-                </KeyboardAvoidingView>
-            </Content>
-        </Container>
+            <KeyboardAvoidingView
+                style={{
+                    justifyContent: 'center',
+                    padding: 10,
+                    paddingTop: 30,
+                }}>
+                <TextInput
+                    placeholder="Username"
+                    value={username}
+                    autoCapitalize="none"
+                    onChangeText={(i) => setUsername(i)}
+                />
+                <TextInput
+                    style={{ marginTop: 15 }}
+                    placeholder="Password"
+                    value={password}
+                    onChangeText={(i) => setPassword(i)}
+                    secureTextEntry
+                />
+                <Button
+                    style={{ marginTop: 15 }}
+                    mode={'contained'}
+                    onPress={onSubmit}>
+                    Submit
+                </Button>
+            </KeyboardAvoidingView>
+        </View>
     );
 }
 
