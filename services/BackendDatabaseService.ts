@@ -4,9 +4,6 @@ import SharedConstants from '../constants/SharedConstants';
 
 class BackendDatabaseService {
     getInstances = async (): Promise<[{ club: string; domain: string }]> => {
-        console.log({
-            Authorization: 'Basic ' + Base64.btoa('admin:Alex2002#'),
-        });
         const response = await fetch(
             SharedConstants.BACKEND_API_PATH + 'list-clubs',
             {

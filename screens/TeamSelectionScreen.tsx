@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
-import { Text, Appbar, List } from 'react-native-paper';
+import { Text, Appbar, List, Searchbar } from 'react-native-paper';
 import { View } from '../components/Themed';
 import BackendDatabaseService from '../services/BackendDatabaseService';
 import AsyncStorageService from '../services/AsyncStorageService';
@@ -8,23 +8,42 @@ import AsyncStorageService from '../services/AsyncStorageService';
 export default function TeamSelectionScreen() {
     const [loading, setLoading] = useState(true);
     const [instances, setInstances] = useState([]);
+    const [filteredInstances, setFilteredInstances] = useState([]);
+    const [showSearchbar, setShowSearchbar] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const callback = useCallback(() => {
+        const results = instances.filter((instance) => {
+            return instance.club
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase());
+        });
+        setFilteredInstances(results);
+        console.log({ effect: searchQuery });
+    }, [searchQuery]);
 
     useEffect(() => {
         const backendDatabaseService = new BackendDatabaseService();
         const fetchData = async () => {
             const myInstances = await backendDatabaseService.getInstances();
             setInstances(myInstances);
+            setFilteredInstances(myInstances);
             setLoading(false);
         };
         fetchData();
     }, []);
 
+    useEffect(() => {
+        const handler = setTimeout(() => {}, 400);
+        return () => {
+            callback();
+            clearTimeout(handler);
+        };
+    }, [callback]);
+
     const goBack = () => console.log('Went back');
 
-    const handleSearch = () => console.log('Searching');
-
     const onTeamPressed = async (domain: string, name: string) => {
-        console.log({ domain: domain, name: name });
         const asyncStorageService = new AsyncStorageService();
         try {
             await asyncStorageService.setDomain(domain);
@@ -35,15 +54,14 @@ export default function TeamSelectionScreen() {
     };
 
     const RenderInstances = () => {
-        if (instances.length === 0) {
+        if (filteredInstances.length === 0) {
             return <Text>Leider wurden keine Vereine gefunden...</Text>;
         }
         const instArray = [];
-        for (let i = 0; i < instances.length; i++) {
-            if (instances[i] && instances[i].club) {
-                const name = instances[i].club;
-                const description = instances[i].domain;
-                console.log({ name: name, description: description });
+        for (let i = 0; i < filteredInstances.length; i++) {
+            if (filteredInstances[i] && filteredInstances[i].club) {
+                const name = filteredInstances[i].club;
+                const description = filteredInstances[i].domain;
                 instArray.push(
                     <List.Item
                         title={name}
@@ -51,8 +69,8 @@ export default function TeamSelectionScreen() {
                         key={'list_key_' + i}
                         onPress={() => {
                             onTeamPressed(
-                                instances[i].domain,
-                                instances[i].club
+                                filteredInstances[i].domain,
+                                filteredInstan[i].club
                             );
                         }}
                         left={(props) => (
@@ -78,7 +96,7 @@ export default function TeamSelectionScreen() {
                     title="Vereinsauswahl"
                     subtitle="Bitte wähle deinen Verein aus"
                 />
-                <Appbar.Action icon="magnify" onPress={handleSearch} />
+                {/* <Appbar.Action icon="magnify" onPress={handleSearch} /> */}
             </Appbar.Header>
         );
     };
@@ -87,17 +105,28 @@ export default function TeamSelectionScreen() {
         return (
             <View>
                 <MyHeader />
-                <View>
+                <View
+                    style={{ alignItems: 'center', justifyContent: 'center' }}>
                     <ActivityIndicator color="#ccc" />
-                    <Text>Loading...</Text>
+                    {/* <Text>Loading...</Text> */}
                 </View>
             </View>
         );
     }
 
+    const handleChangeSearch = (term: string) => {
+        setSearchQuery(term);
+    };
+
     return (
         <View>
             <MyHeader />
+            {/* <RenderSearchbar /> */}
+            <Searchbar
+                placeholder={'Vereinsname'}
+                onChangeText={handleChangeSearch}
+                value={searchQuery}
+            />
             <ScrollView
                 contentContainerStyle={{
                     paddingBottom: 30,
