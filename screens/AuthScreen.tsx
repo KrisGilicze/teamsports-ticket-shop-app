@@ -5,7 +5,7 @@ import * as Linking from 'expo-linking';
 import { View } from '../components/Themed';
 import AsyncStorageService from '../services/AsyncStorageService';
 
-export default function AuthScreen() {
+export default function AuthScreen({ navigation }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -27,7 +27,9 @@ export default function AuthScreen() {
         );
     }
 
-    const chooseTeam = () => {};
+    const chooseTeam = () => {
+        navigation.navigate('TeamSelection');
+    };
     return (
         <View style={styles.container}>
             <Image

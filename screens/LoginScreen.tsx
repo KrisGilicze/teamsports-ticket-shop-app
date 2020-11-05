@@ -10,7 +10,7 @@ import { View } from '../components/Themed';
 import InstanceDatabaseService from '../services/InstanceDatabaseService';
 import AsyncStorageService from '../services/AsyncStorageService';
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
     const [loading, setLoading] = useState(true);
     const [clubname, setClubname] = useState('');
     const [username, setUsername] = useState('');
@@ -27,15 +27,15 @@ export default function LoginScreen() {
         fetchData();
     }, []);
 
+    // TODO: What happens after Login
     const onSubmit = async () => {
         Keyboard.dismiss();
-        console.log({ username: username, password: password });
         const instanceDatabaseService = new InstanceDatabaseService();
         try {
             await instanceDatabaseService.loginUser(username, password, true);
         } catch (e) {
-            console.log('oopsie, login failed');
-            console.log(e);
+            console.info('oopsie, login failed');
+            console.error(e);
         }
     };
 

@@ -1,5 +1,8 @@
 export type RootStackParamList = {
     Root: undefined;
+    Auth: undefined;
+    Login: undefined;
+    TeamSelection: undefined;
     NotFound: undefined;
 };
 

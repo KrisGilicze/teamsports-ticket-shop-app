@@ -5,7 +5,7 @@ import { View } from '../components/Themed';
 import BackendDatabaseService from '../services/BackendDatabaseService';
 import AsyncStorageService from '../services/AsyncStorageService';
 
-export default function TeamSelectionScreen() {
+export default function TeamSelectionScreen({ navigation }) {
     const [loading, setLoading] = useState(true);
     const [instances, setInstances] = useState([]);
     const [filteredInstances, setFilteredInstances] = useState([]);
@@ -41,15 +41,16 @@ export default function TeamSelectionScreen() {
         };
     }, [callback]);
 
-    const goBack = () => console.log('Went back');
+    const goBack = () => navigation.goBack();
 
     const onTeamPressed = async (domain: string, name: string) => {
         const asyncStorageService = new AsyncStorageService();
         try {
             await asyncStorageService.setDomain(domain);
             await asyncStorageService.setInstanceName(name);
+            navigation.navigate('Login');
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     };
 
@@ -68,10 +69,7 @@ export default function TeamSelectionScreen() {
                         description={description}
                         key={'list_key_' + i}
                         onPress={() => {
-                            onTeamPressed(
-                                filteredInstances[i].domain,
-                                filteredInstan[i].club
-                            );
+                            onTeamPressed(name, description);
                         }}
                         left={(props) => (
                             <List.Icon {...props} icon="application-import" />
