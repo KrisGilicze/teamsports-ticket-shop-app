@@ -70,7 +70,7 @@ export default function TeamSelectionScreen() {
                         onPress={() => {
                             onTeamPressed(
                                 filteredInstances[i].domain,
-                                filteredInstan[i].club
+                                filteredInstances[i].club
                             );
                         }}
                         left={(props) => (

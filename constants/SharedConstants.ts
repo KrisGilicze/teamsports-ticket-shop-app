@@ -1,5 +1,8 @@
+import Constants from 'expo-constants';
+
 export default {
-    BACKEND_API_AUTH_KEY: '***REMOVED***',
+    BACKEND_API_PW: Constants.manifest.extra.backendApiPw,
+    BACKEND_API_AUTH_KEY: Constants.manifest.extra.backendApiKey,
     BACKEND_API_PATH: 'https://backend.teamsports2.at/customers/',
     INSTANCE_AUTH_API_PATH: '/Apiv5Auth/',
     INSTANCE_INTERNAL_API_PATH: '/Apiv5Internal/',
