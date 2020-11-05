@@ -1,5 +1,4 @@
 import Base64 from 'Base64';
-
 import SharedConstants from '../constants/SharedConstants';
 
 class BackendDatabaseService {
@@ -10,7 +9,8 @@ class BackendDatabaseService {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
-                    Authorization: 'Basic ' + Base64.btoa('admin:Alex2002#'),
+                    Authorization:
+                        'Basic ' + Base64.btoa(SharedConstants.BACKEND_API_PW),
                 },
             }
         );
