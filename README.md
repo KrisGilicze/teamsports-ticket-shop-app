@@ -17,7 +17,9 @@ npm install --global expo-cli
 ```
 
 3. Add API tokens
-   Insert https://drive.google.com/file/d/1VjJIN5s1rcAAwA0a4LIAqamKLqjjJxzN/ into project root
+
+Insert https://drive.google.com/file/d/1VjJIN5s1rcAAwA0a4LIAqamKLqjjJxzN/ into project root
+
 4. Install dependencies (!!!yarn, do not use npm!!!)
 
 ```
