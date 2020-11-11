@@ -9,17 +9,15 @@ export default function TeamSelectionScreen({ navigation }) {
     const [loading, setLoading] = useState(true);
     const [instances, setInstances] = useState([]);
     const [filteredInstances, setFilteredInstances] = useState([]);
-    const [showSearchbar, setShowSearchbar] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
 
-    const callback = useCallback(() => {
+    useEffect(() => {
         const results = instances.filter((instance) => {
             return instance.club
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase());
         });
         setFilteredInstances(results);
-        console.log({ effect: searchQuery });
     }, [searchQuery]);
 
     useEffect(() => {
@@ -32,14 +30,6 @@ export default function TeamSelectionScreen({ navigation }) {
         };
         fetchData();
     }, []);
-
-    useEffect(() => {
-        const handler = setTimeout(() => {}, 400);
-        return () => {
-            callback();
-            clearTimeout(handler);
-        };
-    }, [callback]);
 
     const goBack = () => navigation.goBack();
 

@@ -9,6 +9,7 @@ export type RootStackParamList = {
 export type BottomTabParamList = {
     Auth: undefined;
     TeamSelection: undefined;
+    Login: undefined;
     Scanner: undefined;
 };
 
